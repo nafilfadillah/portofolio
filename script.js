@@ -198,6 +198,65 @@ document.getElementById('contactForm')?.addEventListener('submit', (e) => {
    Edit di sini kalau mau update isi modal "Details" per project.
    key harus sama persis dengan data-project di HTML.
 ========================================================= */
+/* =========================================================
+   LIVE LOCAL CLOCK (WIB)
+========================================================= */
+(function initLiveClock() {
+    const clockEl = document.getElementById('localClock');
+    if (!clockEl) return;
+
+    function tick() {
+        const now = new Date().toLocaleTimeString('id-ID', {
+            timeZone: 'Asia/Jakarta',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+        clockEl.textContent = now;
+    }
+    tick();
+    setInterval(tick, 15000);
+})();
+
+/* =========================================================
+   GITHUB LAST ACTIVE (relative time from public events)
+========================================================= */
+(function initGitHubLastActive() {
+    const el = document.getElementById('ghLastActive');
+    if (!el) return;
+
+    fetch('https://api.github.com/users/nafilfadillah/events/public')
+        .then(res => { if (!res.ok) throw new Error('GitHub events error'); return res.json(); })
+        .then(events => {
+            if (!Array.isArray(events) || !events.length) {
+                el.innerHTML = '<i class="fas fa-circle-info"></i> Belum ada aktivitas publik terbaru.';
+                return;
+            }
+            const lastDate = new Date(events[0].created_at);
+            el.innerHTML = `<i class="fas fa-bolt"></i> Terakhir aktif di GitHub: ${timeAgo(lastDate)}`;
+        })
+        .catch(() => {
+            el.innerHTML = '<i class="fas fa-circle-info"></i> Aktivitas terakhir tidak tersedia saat ini.';
+        });
+
+    function timeAgo(date) {
+        const seconds = Math.floor((new Date() - date) / 1000);
+        const units = [
+            ['tahun', 31536000], ['bulan', 2592000], ['hari', 86400],
+            ['jam', 3600], ['menit', 60]
+        ];
+        for (const [label, secs] of units) {
+            const value = Math.floor(seconds / secs);
+            if (value >= 1) return `${value} ${label} lalu`;
+        }
+        return 'baru saja';
+    }
+})();
+
+/* =========================================================
+   PROJECT DETAIL DATA
+   Edit di sini kalau mau update isi modal "Details" per project.
+   key harus sama persis dengan data-project di HTML.
+========================================================= */
 const PROJECTS = {
     'air-quality': {
         icon: 'fa-wind',
