@@ -115,6 +115,7 @@ document.getElementById('saveContactBtn')?.addEventListener('click', () => {
         'EMAIL;TYPE=INTERNET:nafilfadillah09@gmail.com',
         'TEL;TYPE=CELL:+6281573903440',
         'URL:https://github.com/nafilfadillah',
+        'URL:https://www.linkedin.com/in/nafil-fadillah-ab468a28b/',
         'END:VCARD'
     ].join('\r\n');
 
