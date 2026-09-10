@@ -575,6 +575,19 @@ section{ max-width: 1080px; margin: auto; padding: 90px 20px; }
     margin-bottom: 44px;
     text-align: center;
     display: block;
+    position: relative;
+    padding-bottom: 18px;
+}
+.section-title::after{
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 46px;
+    height: 3px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--signal), var(--accent));
 }
 
 .about-container{ display: grid; grid-template-columns: 1.1fr .9fr; gap: 60px; align-items: center; }
