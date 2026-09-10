@@ -1,4 +1,9 @@
 /* =========================================================
+   GLOBAL: reduced-motion preference (declared first — used everywhere below)
+========================================================= */
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* =========================================================
    LANGUAGE TOGGLE (ID / EN)
 ========================================================= */
 (function initLangToggle() {
@@ -508,17 +513,50 @@ filterBtns.forEach(btn => {
 AOS.init({ duration: 800, once: true, offset: 60 });
 
 /* =========================================================
-   LOADER
+   LOADER — animated traceroute sequence
 ========================================================= */
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        const loader = document.getElementById('loader');
-        if (loader) {
-            loader.style.opacity = '0';
-            setTimeout(() => { loader.style.display = 'none'; }, 800);
+(function initTraceLoader() {
+    const traceLog = document.getElementById('traceLog');
+    const loader = document.getElementById('loader');
+    if (!traceLog || !loader) return;
+
+    const hops = [
+        { ip: '10.0.0.1', host: 'local-gateway', ms: 1 },
+        { ip: '182.253.x.x', host: 'isp-jakarta', ms: 12 },
+        { ip: '103.28.x.x', host: 'apjii-ix', ms: 19 },
+        { ip: '104.21.x.x', host: 'cloudflare-edge', ms: 27 },
+        { ip: '—', host: 'nafil.dev', ms: 31, success: true }
+    ];
+
+    if (prefersReducedMotion) {
+        finishLoading();
+        return;
+    }
+
+    let i = 0;
+    function nextHop() {
+        if (i >= hops.length) {
+            setTimeout(finishLoading, 350);
+            return;
         }
-    }, 900);
-});
+        const h = hops[i];
+        const line = document.createElement('div');
+        line.className = 'trace-line' + (h.success ? ' trace-success' : '');
+        line.innerHTML = h.success
+            ? `<span class="trace-num">${i + 1}</span> <i class="fas fa-circle-check"></i> connected to <strong>${h.host}</strong>`
+            : `<span class="trace-num">${i + 1}</span> ${h.ip} <span class="trace-host">(${h.host})</span> <span class="trace-ms">${h.ms} ms</span>`;
+        traceLog.appendChild(line);
+        i++;
+        setTimeout(nextHop, h.success ? 200 : 180);
+    }
+
+    function finishLoading() {
+        loader.style.opacity = '0';
+        setTimeout(() => { loader.style.display = 'none'; }, 600);
+    }
+
+    setTimeout(nextHop, 200);
+})();
 
 /* =========================================================
    THEME TOGGLE (persisted)
@@ -550,7 +588,6 @@ function setThemeIcon() {
 ========================================================= */
 const typingEl = document.getElementById('typing');
 const roles = ['Network Engineer', 'Linux Enthusiast', 'Web Developer', 'IoT Developer'];
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 if (typingEl) {
     if (prefersReducedMotion) {
