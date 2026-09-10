@@ -899,41 +899,53 @@ section{ max-width: 1080px; margin: auto; padding: 90px 20px; }
     transform: translateX(-16px);
 }
 
-.loader-content{ padding: 22px 24px 26px; }
-.loader-content h1{
-    font-size: 1rem;
-    font-weight: 500;
-    font-family: var(--font-mono);
-    color: var(--muted);
-    margin-bottom: 16px;
-    white-space: nowrap;
-}
-.loader-content h1 span{ color: var(--signal); }
+.loader-content{ padding: 22px 24px 20px; }
 
 .trace-log{
     font-family: var(--font-mono);
-    font-size: .82rem;
-    min-height: 130px;
+    font-size: .85rem;
+    min-height: 110px;
 }
-.trace-line{
+.trace-line{ padding: 5px 0; }
+.trace-prompt{ color: var(--signal); display: inline-block; }
+.trace-prompt::after{
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 1em;
+    background: var(--signal);
+    margin-left: 2px;
+    vertical-align: -2px;
+    animation: caret 1s step-end infinite;
+}
+.trace-response{
     color: var(--muted);
-    padding: 4px 0;
+    padding: 4px 0 0 4px;
     opacity: 0;
-    animation: trace-fade-in .25s ease forwards;
-    border-bottom: 1px dashed transparent;
+    animation: trace-fade-in .3s ease forwards;
 }
-@keyframes trace-fade-in{ from{ opacity: 0; transform: translateX(-4px); } to{ opacity: 1; transform: translateX(0); } }
-.trace-num{ display: inline-block; width: 18px; color: var(--muted-2); }
-.trace-host{ color: var(--muted-2); }
-.trace-ms{ float: right; color: var(--accent); }
-.trace-success{
+@keyframes trace-fade-in{ from{ opacity: 0; transform: translateY(-3px); } to{ opacity: 1; transform: translateY(0); } }
+.trace-response.trace-success{ color: var(--uptime); font-weight: 600; }
+
+.trace-welcome{
     color: var(--uptime);
     font-weight: 600;
-    padding-top: 10px;
-    margin-top: 6px;
+    padding-top: 14px;
+    margin-top: 8px;
     border-top: 1px solid var(--line);
+    opacity: 0;
+    animation: trace-fade-in .35s ease forwards;
 }
-.trace-success i{ margin-right: 4px; }
+.trace-welcome i{ margin-right: 6px; }
+
+.skip-hint{
+    margin-top: 16px;
+    font-family: var(--font-mono);
+    font-size: .7rem;
+    color: var(--muted-2);
+    opacity: .7;
+    text-align: right;
+}
 
 .contact-container{ display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; margin-top: 40px; }
 
