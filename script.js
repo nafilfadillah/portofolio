@@ -693,6 +693,9 @@ if (!isTouch) {
     if (!canvas || prefersReducedMotion) return;
     const ctx = canvas.getContext('2d');
     let w, h, particles;
+    const mouse = { x: null, y: null, active: false };
+    const LINK_DIST = 130;
+    const MOUSE_DIST = 170;
 
     function resize() {
         w = canvas.width = window.innerWidth;
@@ -700,27 +703,69 @@ if (!isTouch) {
     }
 
     function makeParticles() {
-        const count = Math.min(60, Math.floor((w * h) / 22000));
+        const count = Math.min(70, Math.floor((w * h) / 18000));
         particles = Array.from({ length: count }, () => ({
             x: Math.random() * w,
             y: Math.random() * h,
-            vx: (Math.random() - 0.5) * 0.25,
-            vy: (Math.random() - 0.5) * 0.25,
-            r: Math.random() * 1.4 + 0.4
+            vx: (Math.random() - 0.5) * 0.3,
+            vy: (Math.random() - 0.5) * 0.3,
+            r: Math.random() * 1.4 + 0.6
         }));
     }
 
     function draw() {
         ctx.clearRect(0, 0, w, h);
-        ctx.fillStyle = 'rgba(240,180,41,0.55)';
+
+        // move + draw nodes
         particles.forEach(p => {
             p.x += p.vx; p.y += p.vy;
             if (p.x < 0 || p.x > w) p.vx *= -1;
             if (p.y < 0 || p.y > h) p.vy *= -1;
             ctx.beginPath();
+            ctx.fillStyle = 'rgba(217,168,87,0.65)';
             ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
             ctx.fill();
         });
+
+        // draw edges between nearby nodes (network topology look)
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const a = particles[i], b = particles[j];
+                const dx = a.x - b.x, dy = a.y - b.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < LINK_DIST) {
+                    ctx.strokeStyle = `rgba(217,168,87,${0.18 * (1 - dist / LINK_DIST)})`;
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(a.x, a.y);
+                    ctx.lineTo(b.x, b.y);
+                    ctx.stroke();
+                }
+            }
+
+            // connect cursor to nearby nodes, like a device "pinging" the network
+            if (mouse.active) {
+                const p = particles[i];
+                const dx = p.x - mouse.x, dy = p.y - mouse.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < MOUSE_DIST) {
+                    ctx.strokeStyle = `rgba(108,140,255,${0.35 * (1 - dist / MOUSE_DIST)})`;
+                    ctx.lineWidth = 1.2;
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        if (mouse.active) {
+            ctx.beginPath();
+            ctx.fillStyle = 'rgba(108,140,255,0.9)';
+            ctx.arc(mouse.x, mouse.y, 2.5, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
         requestAnimationFrame(draw);
     }
 
@@ -728,4 +773,11 @@ if (!isTouch) {
     makeParticles();
     draw();
     window.addEventListener('resize', () => { resize(); makeParticles(); });
+
+    window.addEventListener('mousemove', e => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+        mouse.active = true;
+    }, { passive: true });
+    window.addEventListener('mouseleave', () => { mouse.active = false; });
 })();
