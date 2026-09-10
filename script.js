@@ -513,49 +513,104 @@ filterBtns.forEach(btn => {
 AOS.init({ duration: 800, once: true, offset: 60 });
 
 /* =========================================================
-   LOADER — animated traceroute sequence
+   LOADER — interactive typewriter boot sequence (skippable)
 ========================================================= */
-(function initTraceLoader() {
+(function initBootLoader() {
     const traceLog = document.getElementById('traceLog');
     const loader = document.getElementById('loader');
     if (!traceLog || !loader) return;
 
-    const hops = [
-        { ip: '10.0.0.1', host: 'local-gateway', ms: 1 },
-        { ip: '182.253.x.x', host: 'isp-jakarta', ms: 12 },
-        { ip: '103.28.x.x', host: 'apjii-ix', ms: 19 },
-        { ip: '104.21.x.x', host: 'cloudflare-edge', ms: 27 },
-        { ip: '—', host: 'nafil.dev', ms: 31, success: true }
+    const sequence = [
+        { prompt: 'whoami', response: 'nafil_fadillah' },
+        { prompt: 'cat role.txt', response: 'Network Engineer · Linux Enthusiast · Web Developer' },
+        { prompt: 'echo $STATUS', response: 'Available for internship & freelance', success: true }
     ];
 
-    if (prefersReducedMotion) {
+    let finished = false;
+    let skipped = false;
+
+    function finishLoading() {
+        if (finished) return;
+        finished = true;
+        loader.style.opacity = '0';
+        setTimeout(() => { loader.style.display = 'none'; }, 500);
+    }
+
+    function skip() {
+        if (skipped || finished) return;
+        skipped = true;
         finishLoading();
+    }
+
+    document.addEventListener('keydown', skip, { once: true });
+    document.addEventListener('click', skip, { once: true });
+
+    if (prefersReducedMotion) {
+        renderInstantly();
+        setTimeout(finishLoading, 500);
         return;
     }
 
-    let i = 0;
-    function nextHop() {
-        if (i >= hops.length) {
-            setTimeout(finishLoading, 350);
+    function renderInstantly() {
+        sequence.forEach(item => traceLog.appendChild(buildLine(item, item.prompt)));
+        traceLog.appendChild(buildWelcomeLine());
+    }
+
+    function buildLine(item, promptText) {
+        const line = document.createElement('div');
+        line.className = 'trace-line';
+        line.innerHTML = `<span class="trace-prompt">$ ${promptText}</span>` +
+            (item.response ? `<div class="trace-response${item.success ? ' trace-success' : ''}">${item.response}</div>` : '');
+        return line;
+    }
+
+    function buildWelcomeLine() {
+        const line = document.createElement('div');
+        line.className = 'trace-line trace-welcome';
+        line.innerHTML = `<i class="fas fa-circle-check"></i> Welcome to my portfolio`;
+        return line;
+    }
+
+    let step = 0;
+    function typeStep() {
+        if (skipped || finished) return;
+        if (step >= sequence.length) {
+            traceLog.appendChild(buildWelcomeLine());
+            setTimeout(finishLoading, 700);
             return;
         }
-        const h = hops[i];
+
+        const item = sequence[step];
         const line = document.createElement('div');
-        line.className = 'trace-line' + (h.success ? ' trace-success' : '');
-        line.innerHTML = h.success
-            ? `<span class="trace-num">${i + 1}</span> <i class="fas fa-circle-check"></i> connected to <strong>${h.host}</strong>`
-            : `<span class="trace-num">${i + 1}</span> ${h.ip} <span class="trace-host">(${h.host})</span> <span class="trace-ms">${h.ms} ms</span>`;
+        line.className = 'trace-line';
+        const promptEl = document.createElement('span');
+        promptEl.className = 'trace-prompt';
+        line.appendChild(promptEl);
         traceLog.appendChild(line);
-        i++;
-        setTimeout(nextHop, h.success ? 200 : 180);
+
+        const fullText = `$ ${item.prompt}`;
+        let charIndex = 0;
+        (function typeChar() {
+            if (skipped || finished) return;
+            charIndex++;
+            promptEl.textContent = fullText.slice(0, charIndex);
+            if (charIndex < fullText.length) {
+                setTimeout(typeChar, 28);
+            } else {
+                setTimeout(() => {
+                    if (skipped || finished) return;
+                    const resEl = document.createElement('div');
+                    resEl.className = 'trace-response' + (item.success ? ' trace-success' : '');
+                    resEl.textContent = item.response;
+                    line.appendChild(resEl);
+                    step++;
+                    setTimeout(typeStep, 260);
+                }, 150);
+            }
+        })();
     }
 
-    function finishLoading() {
-        loader.style.opacity = '0';
-        setTimeout(() => { loader.style.display = 'none'; }, 600);
-    }
-
-    setTimeout(nextHop, 200);
+    setTimeout(typeStep, 250);
 })();
 
 /* =========================================================
