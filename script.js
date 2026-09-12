@@ -585,8 +585,7 @@ AOS.init({ duration: 800, once: true, offset: 60 });
     if (!traceLog || !loader) return;
 
     const sequence = [
-        { prompt: 'whoami', response: 'nafil_fadillah' },
-        { prompt: 'cat role.txt', response: 'Network Engineer · Linux Enthusiast · Web Developer' },
+        { prompt: 'whoami', response: 'Nafil Fadillah — Network Engineer & Web Developer' },
         { prompt: 'echo $STATUS', response: 'Available for internship & freelance', success: true }
     ];
 
