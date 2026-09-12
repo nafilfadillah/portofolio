@@ -391,6 +391,70 @@ const PROJECTS = {
             id: 'Portofolio yang cepat diakses, gratis di-hosting, dan gampang di-update lewat Git.',
             en: 'A fast-loading portfolio, free to host, and easy to update via Git.'
         }
+    },
+    'auto-fan': {
+        icon: 'fa-fan',
+        problem: {
+            id: 'Ruangan butuh sirkulasi udara otomatis tanpa harus manual nyalain/matiin kipas saat suhu berubah.',
+            en: 'A room needed automatic air circulation without manually switching the fan on/off as temperature changes.'
+        },
+        arch: {
+            id: 'Sensor suhu membaca kondisi ruangan secara berkala, mikrokontroler membandingkan dengan ambang batas yang ditentukan, lalu mengontrol relay untuk menyalakan/mematikan kipas.',
+            en: 'A temperature sensor reads room conditions periodically, the microcontroller compares it against a set threshold, then controls a relay to switch the fan on/off.'
+        },
+        tools: ['Arduino', 'Sensor Suhu', 'Relay', 'Kipas DC/AC'],
+        outcome: {
+            id: 'Kipas menyala otomatis saat suhu ruangan naik melewati ambang batas, dan mati sendiri saat suhu kembali normal.',
+            en: 'The fan turns on automatically once room temperature crosses the threshold, and switches off on its own once it normalizes.'
+        }
+    },
+    'digital-dice': {
+        icon: 'fa-dice',
+        problem: {
+            id: 'Butuh simulasi lempar dadu elektronik untuk latihan konsep logika digital dan random number generation sederhana.',
+            en: 'Needed an electronic dice-roll simulation to practice digital logic concepts and simple random number generation.'
+        },
+        arch: {
+            id: 'Rangkaian counter digital berjalan terus-menerus dengan clock cepat selagi tombol ditekan; saat dilepas, nilai counter terakhir (1-6) dikunci dan ditampilkan di seven-segment display.',
+            en: 'A digital counter circuit runs continuously on a fast clock while the button is held; on release, the last counter value (1-6) is latched and shown on a seven-segment display.'
+        },
+        tools: ['Digital Logic', 'Seven-Segment Display', 'Microcontroller', 'Push Button'],
+        outcome: {
+            id: 'Simulasi dadu digital yang hasilnya terasa acak setiap kali tombol ditekan, jadi latihan praktis konsep digital logic.',
+            en: 'A digital dice simulation that feels random on every button press, serving as hands-on practice for digital logic concepts.'
+        }
+    },
+    'iot-light': {
+        icon: 'fa-lightbulb',
+        problem: {
+            id: 'Nyalain/matiin lampu masih harus manual lewat saklar fisik, nggak bisa dikontrol dari jarak jauh.',
+            en: 'Turning lights on/off still required a physical switch, with no way to control them remotely.'
+        },
+        arch: {
+            id: 'ESP8266 terhubung ke WiFi dan mengontrol relay yang terpasang di jalur lampu, menerima perintah on/off dari aplikasi atau web dashboard.',
+            en: 'An ESP8266 connects to WiFi and controls a relay wired to the light circuit, receiving on/off commands from an app or web dashboard.'
+        },
+        tools: ['ESP8266', 'Relay', 'WiFi', 'Web/App Control'],
+        outcome: {
+            id: 'Lampu bisa dinyalakan/dimatikan dari mana saja selama ada koneksi internet, tanpa perlu ke saklar fisik.',
+            en: 'Lights can be turned on/off from anywhere with an internet connection, without touching a physical switch.'
+        }
+    },
+    'flood-sensor': {
+        icon: 'fa-water',
+        problem: {
+            id: 'Daerah rawan banjir butuh sistem peringatan dini otomatis sebelum air naik ke level berbahaya.',
+            en: 'Flood-prone areas needed an automatic early-warning system before water rises to a dangerous level.'
+        },
+        arch: {
+            id: 'Sensor ketinggian air membaca level air secara berkala; saat melewati ambang batas yang ditentukan, mikrokontroler memicu buzzer/alarm sebagai peringatan.',
+            en: 'A water-level sensor reads the water level periodically; once it crosses a set threshold, the microcontroller triggers a buzzer/alarm as a warning.'
+        },
+        tools: ['Water Level Sensor', 'Microcontroller', 'Buzzer', 'Early Warning System'],
+        outcome: {
+            id: 'Alarm otomatis aktif saat ketinggian air mendekati batas bahaya, memberi waktu lebih untuk evakuasi/antisipasi.',
+            en: 'An alarm automatically triggers as water level approaches the danger threshold, giving more time to evacuate or prepare.'
+        }
     }
 };
 
