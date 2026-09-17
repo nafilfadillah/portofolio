@@ -83,6 +83,9 @@ h1,h2,h3{ font-family: var(--font-display); letter-spacing: -0.02em; }
 }
 .eyebrow::before{ content: "$ "; color: var(--muted-2); }
 
+/* ==========================================================================
+   ACCESSIBILITY — skip link
+   ========================================================================== */
 .skip-link{
     position: fixed;
     top: -60px;
@@ -99,6 +102,9 @@ h1,h2,h3{ font-family: var(--font-display); letter-spacing: -0.02em; }
 }
 .skip-link:focus{ top: 16px; }
 
+/* ==========================================================================
+   SCROLL PROGRESS BAR
+   ========================================================================== */
 .scroll-progress{
     position: fixed;
     top: 0; left: 0;
@@ -109,6 +115,9 @@ h1,h2,h3{ font-family: var(--font-display); letter-spacing: -0.02em; }
     transition: width .1s linear;
 }
 
+/* ==========================================================================
+   BACK TO TOP
+   ========================================================================== */
 .back-to-top{
     position: fixed;
     bottom: 28px;
@@ -130,6 +139,9 @@ h1,h2,h3{ font-family: var(--font-display); letter-spacing: -0.02em; }
 .back-to-top.is-visible{ opacity: 1; transform: translateY(0); pointer-events: auto; }
 .back-to-top:hover{ border-color: var(--signal); color: var(--signal); }
 
+/* ==========================================================================
+   GITHUB LIVE STATS
+   ========================================================================== */
 .gh-stats-grid{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -155,6 +167,9 @@ h1,h2,h3{ font-family: var(--font-display); letter-spacing: -0.02em; }
     .gh-stats-grid .stat-card h3{ font-size: 1.5rem; }
 }
 
+/* ==========================================================================
+   CONTACT FORM
+   ========================================================================== */
 .contact-form{
     max-width: 560px;
     margin: 0 auto 40px;
@@ -190,6 +205,9 @@ h1,h2,h3{ font-family: var(--font-display); letter-spacing: -0.02em; }
 
 .contact-form button{ align-self: flex-start; border: none; cursor: pointer; }
 
+/* ==========================================================================
+   TIMELINE (Education / Experience)
+   ========================================================================== */
 .timeline{ position: relative; padding-left: 36px; }
 .timeline::before{
     content: '';
@@ -228,6 +246,9 @@ h1,h2,h3{ font-family: var(--font-display); letter-spacing: -0.02em; }
 .timeline-content p{ color: var(--muted); font-size: .88rem; margin-bottom: 12px; }
 .timeline-content .tags{ margin-top: 4px; }
 
+/* ==========================================================================
+   CURRENTLY LEARNING WIDGET
+   ========================================================================== */
 .learning-widget{
     display: flex;
     align-items: center;
@@ -244,6 +265,9 @@ h1,h2,h3{ font-family: var(--font-display); letter-spacing: -0.02em; }
 .learning-widget i{ color: var(--signal); font-size: 1rem; }
 .learning-label{ font-family: var(--font-mono); font-size: .76rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
 
+/* ==========================================================================
+   GITHUB CONTRIBUTION GRAPH
+   ========================================================================== */
 .gh-chart-wrap{
     max-width: 100%;
     overflow-x: auto;
@@ -256,6 +280,9 @@ h1,h2,h3{ font-family: var(--font-display); letter-spacing: -0.02em; }
 }
 .gh-chart-wrap img{ max-width: 100%; height: auto; }
 
+/* ==========================================================================
+   LOADING SKELETON (GitHub stats)
+   ========================================================================== */
 .gh-stats-grid .stat-card h3.is-loading{
     color: transparent;
     display: inline-block;
@@ -267,6 +294,9 @@ h1,h2,h3{ font-family: var(--font-display); letter-spacing: -0.02em; }
 }
 @keyframes shimmer{ 0%{ background-position: 200% 0; } 100%{ background-position: -200% 0; } }
 
+/* ==========================================================================
+   LANGUAGE TOGGLE
+   ========================================================================== */
 #langToggle{
     background: var(--panel-2);
     border: 1px solid var(--line);
@@ -283,6 +313,9 @@ h1,h2,h3{ font-family: var(--font-display); letter-spacing: -0.02em; }
 }
 #langToggle:hover{ border-color: var(--signal); color: var(--signal); }
 
+/* ==========================================================================
+   TOAST NOTIFICATIONS
+   ========================================================================== */
 .toast-container{
     position: fixed;
     bottom: 28px;
@@ -942,32 +975,35 @@ section{ max-width: 1080px; margin: auto; padding: 90px 20px; }
 
 .quick-contact-item{
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 14px;
-    padding: 14px 16px;
+    text-align: center;
+    gap: 10px;
+    padding: 22px 16px;
     border-radius: var(--radius-sm);
     border: 1px solid var(--line);
     background: var(--panel-2);
     text-decoration: none;
     transition: border-color .25s ease, transform .25s ease;
 }
-.quick-contact-item:hover{ border-color: var(--signal); transform: translateY(-3px); }
+.quick-contact-item:hover{ border-color: var(--signal); transform: translateY(-4px); }
 
 .qc-icon{
-    width: 40px; height: 40px;
+    width: 44px; height: 44px;
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     background: var(--signal-dim);
     color: var(--signal);
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     flex-shrink: 0;
 }
 
-.qc-text{ display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.qc-text strong{ font-size: .85rem; color: var(--text); }
+.qc-text{ display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 0; width: 100%; }
+.qc-text strong{ font-size: .88rem; color: var(--text); }
 .qc-text span{
-    font-size: .76rem;
+    font-size: .78rem;
     color: var(--muted);
+    max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
