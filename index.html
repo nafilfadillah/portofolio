@@ -743,6 +743,39 @@
 
     <button id="backToTop" class="back-to-top" aria-label="Kembali ke atas"><i class="fas fa-arrow-up"></i></button>
 
+    <!-- FAQ Chat Widget -->
+    <button id="chatLauncher" class="chat-launcher" aria-label="Buka chat">
+        <i class="fas fa-comment-dots"></i>
+    </button>
+
+    <div id="chatWindow" class="chat-window" aria-hidden="true">
+        <div class="chat-header">
+            <span class="tl-dot tl-red"></span>
+            <span class="tl-dot tl-yellow"></span>
+            <span class="tl-dot tl-green"></span>
+            <span class="chat-title">nafil-bot</span>
+            <button id="chatClose" class="chat-close" aria-label="Tutup chat">&times;</button>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="chat-msg chat-msg-bot">
+                Halo! 👋 Gua bot otomatis yang bisa jawab pertanyaan seputar skill, project, pengalaman, dan cara kontak Nafil. Coba klik salah satu di bawah, atau ketik pertanyaan lo.
+            </div>
+        </div>
+
+        <div class="chat-suggestions" id="chatSuggestions">
+            <button class="chat-chip" data-q="skill">Skill apa aja?</button>
+            <button class="chat-chip" data-q="project">Project andalan?</button>
+            <button class="chat-chip" data-q="kontak">Cara kontak?</button>
+            <button class="chat-chip" data-q="available">Available kapan?</button>
+        </div>
+
+        <form id="chatForm" class="chat-input-row">
+            <input type="text" id="chatInput" placeholder="Tanya sesuatu..." autocomplete="off">
+            <button type="submit" aria-label="Kirim"><i class="fas fa-paper-plane"></i></button>
+        </form>
+    </div>
+
     <div id="toastContainer" class="toast-container" aria-live="polite"></div>
 
     <footer>
