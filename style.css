@@ -893,13 +893,41 @@ section{ max-width: 1080px; margin: auto; padding: 90px 20px; }
 .tags{ display: flex; flex-wrap: wrap; gap: 8px; }
 .tag{ font-family: var(--font-mono); background: var(--signal-dim); color: var(--signal); padding: 5px 11px; border-radius: var(--radius-sm); font-size: .72rem; font-weight: 600; }
 
-.skills-grid{ display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; }
+.skills-marquee{
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 10px 0;
+}
+.skills-marquee::before, .skills-marquee::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 90px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+.skills-marquee::before{ left: 0; background: linear-gradient(to right, var(--ink), transparent); }
+.skills-marquee::after{ right: 0; background: linear-gradient(to left, var(--ink), transparent); }
+
+.skills-track{
+    display: flex;
+    width: max-content;
+    gap: 18px;
+    animation: skills-slide 32s linear infinite;
+}
+.skills-marquee:hover .skills-track{ animation-play-state: paused; }
+
+@keyframes skills-slide{ from{ transform: translateX(0); } to{ transform: translateX(-50%); } }
 
 .skill-card{
     background: var(--panel);
     border: 1px solid var(--line);
     border-radius: var(--radius);
-    padding: 24px;
+    padding: 20px 26px;
+    width: 168px;
+    flex-shrink: 0;
     display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
     transition: transform .3s ease, border-color .3s ease;
     cursor: default;
@@ -907,7 +935,7 @@ section{ max-width: 1080px; margin: auto; padding: 90px 20px; }
 .skill-card:hover{ transform: translateY(-6px); border-color: var(--signal); }
 .skill-card i{ font-size: 2rem; transition: transform .35s ease; }
 .skill-card:hover i{ transform: scale(1.15); }
-.skill-card p{ font-weight: 600; font-size: .84rem; text-align: center; }
+.skill-card p{ font-weight: 600; font-size: .82rem; text-align: center; }
 
 #certificates .project-card{ border-left: 3px solid var(--signal); }
 
@@ -1167,9 +1195,9 @@ section{ max-width: 1080px; margin: auto; padding: 90px 20px; }
     font-size: .78rem;
     color: var(--muted);
     max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.45;
 }
 
 .contact-actions-grid{
