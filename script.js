@@ -587,7 +587,7 @@ filterBtns.forEach(btn => {
     const FAQ = [
         {
             keywords: ['skill', 'keahlian', 'bisa apa', 'kemampuan', 'kuasai'],
-            answer: 'Nafil fokus di Networking (Cisco, MikroTik), Linux Server Administration, Web Development (PHP, Python, MySQL), dan Embedded/IoT (ESP32, VHDL). Lengkapnya ada di section <a href="#skills">Skills</a> ya.'
+            answer: 'Nafil fokus di Networking (Cisco, MikroTik), Linux Server Administration, dan full-stack development — Node.js, PostgreSQL, React, Flutter, plus WhatsApp bot automation. Ada juga background Embedded/IoT (ESP32, VHDL). Lengkapnya ada di section <a href="#skills">Skills</a> ya.'
         },
         {
             keywords: ['project', 'proyek', 'portfolio', 'karya', 'andalan', 'bikin apa'],
