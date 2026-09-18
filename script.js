@@ -572,6 +572,119 @@ filterBtns.forEach(btn => {
 });
 
 /* =========================================================
+   FAQ CHAT BOT — rule-based, no backend/API needed
+========================================================= */
+(function initChatBot() {
+    const launcher = document.getElementById('chatLauncher');
+    const chatWindow = document.getElementById('chatWindow');
+    const closeBtn = document.getElementById('chatClose');
+    const messages = document.getElementById('chatMessages');
+    const form = document.getElementById('chatForm');
+    const input = document.getElementById('chatInput');
+    const chips = document.querySelectorAll('.chat-chip');
+    if (!launcher || !chatWindow) return;
+
+    const FAQ = [
+        {
+            keywords: ['skill', 'keahlian', 'bisa apa', 'kemampuan', 'kuasai'],
+            answer: 'Nafil fokus di Networking (Cisco, MikroTik), Linux Server Administration, Web Development (PHP, Python, MySQL), dan Embedded/IoT (ESP32, VHDL). Lengkapnya ada di section <a href="#skills">Skills</a> ya.'
+        },
+        {
+            keywords: ['project', 'proyek', 'portfolio', 'karya', 'andalan', 'bikin apa'],
+            answer: 'Beberapa project andalan: IoT Air Quality Monitoring (skripsi), Network Monitoring Dashboard, WireGuard VPN Server, dan Mail/DNS Server config. Cek semua di section <a href="#projects">Projects</a> — ada filter kategori juga.'
+        },
+        {
+            keywords: ['kontak', 'contact', 'hubungi', 'hire', 'email', 'whatsapp', 'wa '],
+            answer: 'Cara paling cepat: WhatsApp di <a href="https://wa.me/6281573903440" target="_blank">+62 815-7390-3440</a> atau email ke <a href="mailto:nafilfadillah09@gmail.com">nafilfadillah09@gmail.com</a>. Semua link ada juga di section <a href="#contact">Contact</a>.'
+        },
+        {
+            keywords: ['available', 'tersedia', 'freelance', 'magang', 'internship', 'kerja', 'lowongan'],
+            answer: 'Nafil saat ini available untuk internship & freelance. Langsung aja kontak lewat WhatsApp/email di section Contact buat diskusi lebih lanjut.'
+        },
+        {
+            keywords: ['pengalaman', 'experience', 'kerja di', 'magang di'],
+            answer: 'Pengalamannya: Laboratory Assistant (Networking, Linux, FPGA, MCS) dan IT Support internship. Detail lengkap ada di section <a href="#experience">Experience</a>.'
+        },
+        {
+            keywords: ['pendidikan', 'education', 'kuliah', 'sekolah', 'kampus', 'universitas'],
+            answer: 'Nafil kuliah S1 Sistem Komputer di Universitas Gunadarma (2023–sekarang), sebelumnya SMK Informatika Pesat jurusan Teknik Komputer Jaringan. Ada di section <a href="#education">Education</a>.'
+        },
+        {
+            keywords: ['sertifikat', 'certificate', 'sertifikasi'],
+            answer: 'Ada 4 sertifikat: BNSP Junior Network Administrator, Linux Ubuntu Server 20.04, MikroTik Hotspot & Bandwidth Management, dan Redistribute Routing Protocol. Cek section <a href="#certificates">Certificates</a> buat lihat PDF-nya.'
+        },
+        {
+            keywords: ['cv', 'resume'],
+            answer: 'CV-nya bisa dilihat/di-download di section Contact, atau buka versi web resume-nya di <a href="resume.html">halaman ini</a>.'
+        },
+        {
+            keywords: ['siapa', 'who', 'nafil itu', 'tentang'],
+            answer: 'Nafil Fadillah, mahasiswa Sistem Komputer yang fokus di Networking, Linux, Web Development, dan IoT. Cek section <a href="#about">About</a> buat cerita lengkapnya.'
+        }
+    ];
+
+    const FALLBACK = 'Hmm, gua belum punya jawaban pasti buat itu 🤔 — coba tanya soal skill, project, pengalaman, atau kontak. Atau langsung aja chat Nafil lewat <a href="https://wa.me/6281573903440" target="_blank">WhatsApp</a>.';
+
+    function openChat() {
+        chatWindow.classList.add('is-open');
+        chatWindow.setAttribute('aria-hidden', 'false');
+        input?.focus();
+    }
+    function closeChat() {
+        chatWindow.classList.remove('is-open');
+        chatWindow.setAttribute('aria-hidden', 'true');
+    }
+
+    launcher.addEventListener('click', () => {
+        chatWindow.classList.contains('is-open') ? closeChat() : openChat();
+    });
+    closeBtn?.addEventListener('click', closeChat);
+
+    function addMessage(text, sender) {
+        const msg = document.createElement('div');
+        msg.className = `chat-msg chat-msg-${sender}`;
+        msg.innerHTML = text;
+        messages.appendChild(msg);
+        messages.scrollTop = messages.scrollHeight;
+    }
+
+    function showTyping() {
+        const typing = document.createElement('div');
+        typing.className = 'chat-msg chat-msg-bot chat-typing';
+        typing.id = 'chatTyping';
+        typing.innerHTML = '<span></span><span></span><span></span>';
+        messages.appendChild(typing);
+        messages.scrollTop = messages.scrollHeight;
+    }
+    function hideTyping() {
+        document.getElementById('chatTyping')?.remove();
+    }
+
+    function answerQuestion(question) {
+        const q = question.toLowerCase();
+        const match = FAQ.find(item => item.keywords.some(kw => q.includes(kw)));
+        addMessage(question, 'user');
+        showTyping();
+        setTimeout(() => {
+            hideTyping();
+            addMessage(match ? match.answer : FALLBACK, 'bot');
+        }, prefersReducedMotion ? 0 : 500 + Math.random() * 400);
+    }
+
+    form?.addEventListener('submit', e => {
+        e.preventDefault();
+        const q = input.value.trim();
+        if (!q) return;
+        answerQuestion(q);
+        input.value = '';
+    });
+
+    chips.forEach(chip => {
+        chip.addEventListener('click', () => answerQuestion(chip.textContent));
+    });
+})();
+
+/* =========================================================
    AOS
 ========================================================= */
 AOS.init({ duration: 800, once: true, offset: 60 });
