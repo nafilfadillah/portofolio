@@ -387,21 +387,51 @@
             </div>
         </div>
 
-        <div class="skills-grid">
-            <div class="skill-card" data-aos="fade-up"><i class="fab fa-linux" style="color:#FCC624"></i><p>Linux Ubuntu</p></div>
-            <div class="skill-card" data-aos="fade-up" data-aos-delay="50"><i class="fas fa-server" style="color:#34D399"></i><p>Server Configuration</p></div>
-            <div class="skill-card" data-aos="fade-up" data-aos-delay="100"><i class="fas fa-network-wired" style="color:#00BFFF"></i><p>Cisco Networking</p></div>
-            <div class="skill-card" data-aos="fade-up" data-aos-delay="150"><i class="fas fa-wifi" style="color:#FF6B00"></i><p>MikroTik</p></div>
-            <div class="skill-card" data-aos="fade-up" data-aos-delay="50"><i class="fas fa-project-diagram" style="color:#00C896"></i><p>Cisco Packet Tracer</p></div>
-            <div class="skill-card" data-aos="fade-up" data-aos-delay="100"><i class="fas fa-route" style="color:#A855F7"></i><p>Routing &amp; Switching</p></div>
-            <div class="skill-card" data-aos="fade-up" data-aos-delay="150"><i class="fas fa-sitemap" style="color:#F43F5E"></i><p>Subnetting</p></div>
-            <div class="skill-card" data-aos="fade-up" data-aos-delay="200"><i class="fab fa-php" style="color:#777BB4"></i><p>PHP</p></div>
-            <div class="skill-card" data-aos="fade-up" data-aos-delay="100"><i class="fas fa-mobile-alt" style="color:#02569B"></i><p>Flutter / Dart</p></div>
-            <div class="skill-card" data-aos="fade-up" data-aos-delay="150"><i class="fab fa-python" style="color:#3776AB"></i><p>Python</p></div>
-            <div class="skill-card" data-aos="fade-up" data-aos-delay="200"><i class="fas fa-database" style="color:#4479A1"></i><p>MySQL</p></div>
-            <div class="skill-card" data-aos="fade-up" data-aos-delay="250"><i class="fas fa-microchip" style="color:#F0B429"></i><p>VHDL / Hardware Logic</p></div>
-            <div class="skill-card" data-aos="fade-up" data-aos-delay="150"><i class="fab fa-html5" style="color:#E34F26"></i><p>HTML5</p></div>
-            <div class="skill-card" data-aos="fade-up" data-aos-delay="200"><i class="fab fa-css3-alt" style="color:#1572B6"></i><p>CSS3</p></div>
+        <div class="skills-marquee">
+            <div class="skills-track" id="skillsTrack">
+                <div class="skill-card"><i class="fab fa-linux" style="color:#FCC624"></i><p>Linux Ubuntu</p></div>
+                <div class="skill-card"><i class="fas fa-server" style="color:#34D399"></i><p>Server Configuration</p></div>
+                <div class="skill-card"><i class="fas fa-network-wired" style="color:#00BFFF"></i><p>Cisco Networking</p></div>
+                <div class="skill-card"><i class="fas fa-wifi" style="color:#FF6B00"></i><p>MikroTik</p></div>
+                <div class="skill-card"><i class="fas fa-project-diagram" style="color:#00C896"></i><p>Cisco Packet Tracer</p></div>
+                <div class="skill-card"><i class="fas fa-route" style="color:#A855F7"></i><p>Routing &amp; Switching</p></div>
+                <div class="skill-card"><i class="fas fa-sitemap" style="color:#F43F5E"></i><p>Subnetting</p></div>
+                <div class="skill-card"><i class="fab fa-node-js" style="color:#3C873A"></i><p>Node.js</p></div>
+                <div class="skill-card"><i class="fas fa-database" style="color:#336791"></i><p>PostgreSQL</p></div>
+                <div class="skill-card"><i class="fab fa-react" style="color:#61DAFB"></i><p>React</p></div>
+                <div class="skill-card"><i class="fas fa-wind" style="color:#38BDF8"></i><p>Tailwind CSS</p></div>
+                <div class="skill-card"><i class="fab fa-whatsapp" style="color:#25D366"></i><p>WhatsApp Bot Automation</p></div>
+                <div class="skill-card"><i class="fas fa-server" style="color:#E57000"></i><p>Proxmox / Virtualization</p></div>
+                <div class="skill-card"><i class="fab fa-php" style="color:#777BB4"></i><p>PHP</p></div>
+                <div class="skill-card"><i class="fas fa-mobile-alt" style="color:#02569B"></i><p>Flutter / Dart</p></div>
+                <div class="skill-card"><i class="fab fa-python" style="color:#3776AB"></i><p>Python</p></div>
+                <div class="skill-card"><i class="fas fa-database" style="color:#4479A1"></i><p>MySQL</p></div>
+                <div class="skill-card"><i class="fas fa-microchip" style="color:#F0B429"></i><p>VHDL / Hardware Logic</p></div>
+                <div class="skill-card"><i class="fab fa-html5" style="color:#E34F26"></i><p>HTML5</p></div>
+                <div class="skill-card"><i class="fab fa-css3-alt" style="color:#1572B6"></i><p>CSS3</p></div>
+
+                <!-- duplicate set for seamless loop -->
+                <div class="skill-card" aria-hidden="true"><i class="fab fa-linux" style="color:#FCC624"></i><p>Linux Ubuntu</p></div>
+                <div class="skill-card" aria-hidden="true"><i class="fas fa-server" style="color:#34D399"></i><p>Server Configuration</p></div>
+                <div class="skill-card" aria-hidden="true"><i class="fas fa-network-wired" style="color:#00BFFF"></i><p>Cisco Networking</p></div>
+                <div class="skill-card" aria-hidden="true"><i class="fas fa-wifi" style="color:#FF6B00"></i><p>MikroTik</p></div>
+                <div class="skill-card" aria-hidden="true"><i class="fas fa-project-diagram" style="color:#00C896"></i><p>Cisco Packet Tracer</p></div>
+                <div class="skill-card" aria-hidden="true"><i class="fas fa-route" style="color:#A855F7"></i><p>Routing &amp; Switching</p></div>
+                <div class="skill-card" aria-hidden="true"><i class="fas fa-sitemap" style="color:#F43F5E"></i><p>Subnetting</p></div>
+                <div class="skill-card" aria-hidden="true"><i class="fab fa-node-js" style="color:#3C873A"></i><p>Node.js</p></div>
+                <div class="skill-card" aria-hidden="true"><i class="fas fa-database" style="color:#336791"></i><p>PostgreSQL</p></div>
+                <div class="skill-card" aria-hidden="true"><i class="fab fa-react" style="color:#61DAFB"></i><p>React</p></div>
+                <div class="skill-card" aria-hidden="true"><i class="fas fa-wind" style="color:#38BDF8"></i><p>Tailwind CSS</p></div>
+                <div class="skill-card" aria-hidden="true"><i class="fab fa-whatsapp" style="color:#25D366"></i><p>WhatsApp Bot Automation</p></div>
+                <div class="skill-card" aria-hidden="true"><i class="fas fa-server" style="color:#E57000"></i><p>Proxmox / Virtualization</p></div>
+                <div class="skill-card" aria-hidden="true"><i class="fab fa-php" style="color:#777BB4"></i><p>PHP</p></div>
+                <div class="skill-card" aria-hidden="true"><i class="fas fa-mobile-alt" style="color:#02569B"></i><p>Flutter / Dart</p></div>
+                <div class="skill-card" aria-hidden="true"><i class="fab fa-python" style="color:#3776AB"></i><p>Python</p></div>
+                <div class="skill-card" aria-hidden="true"><i class="fas fa-database" style="color:#4479A1"></i><p>MySQL</p></div>
+                <div class="skill-card" aria-hidden="true"><i class="fas fa-microchip" style="color:#F0B429"></i><p>VHDL / Hardware Logic</p></div>
+                <div class="skill-card" aria-hidden="true"><i class="fab fa-html5" style="color:#E34F26"></i><p>HTML5</p></div>
+                <div class="skill-card" aria-hidden="true"><i class="fab fa-css3-alt" style="color:#1572B6"></i><p>CSS3</p></div>
+            </div>
         </div>
     </section>
 
